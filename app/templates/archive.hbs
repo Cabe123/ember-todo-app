@@ -1,0 +1,13 @@
+{{#each model as |todo|}}
+  {{#if todo.isCleared}}
+    <p>{{todo.title}}</p>
+  {{/if}}
+{{/each}}
+<div class="archive-container">
+  <div class="todo-container">
+    {{#if todo.isCompleted}}
+      <p></p>
+    {{/if}}
+  </div>
+</div>
+{{outlet}}

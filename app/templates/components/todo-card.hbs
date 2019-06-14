@@ -1,0 +1,29 @@
+<div class="content">
+  <div class="header">
+    {{this.todo.title}} 
+    {{#if this.isHovered}}
+      <i class="x icon todo-x-icon" role="button" onclick={{action "archiveTodo"}}></i>
+    {{/if}}
+  </div>
+  <div class="description">
+    <p>{{this.todo.content}}</p>
+  </div>
+</div>
+{{#if (compare-list-id this.listName "Today")}}
+  {{#if this.todo.isCompleted}}
+    <div class="ui bottom attached button positive" role="button" onclick={{action "changeTodoStatus" this.todo}}>
+      <i class="check circle outline icon"></i>
+      Complete
+    </div>
+  {{else}}
+    <div class="ui bottom attached button primary" role="button" onclick={{action "changeTodoStatus" this.todo}}>
+      <i class="circle outline icon"></i>
+      In progress
+    </div>
+  {{/if}}
+{{else}}
+  <div class="ui bottom attached button grey" role="button">
+    Need to do
+  </div>
+{{/if}}
+{{yield}}

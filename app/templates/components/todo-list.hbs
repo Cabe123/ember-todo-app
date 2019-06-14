@@ -1,0 +1,18 @@
+
+<h1>{{this.todoList.name}}</h1>
+<div class="ui one cards">
+  {{#each this.todoList.todos as |todo|}}
+    {{#unless todo.isCleared}}
+      <TodoCard @todo={{todo}}
+                @listName={{this.todoList.name}} 
+                @onStatusChange={{this.onStatusChange}}
+                @onTodoDoubleClicked={{action "onTodoDoubleClicked" todo}}
+                @onTodoArchiveClicked={{action "onTodoArchiveClicked" todo}}/>
+    {{/unless}}
+  {{/each}}
+</div>
+<button class="ui fluid basic button add-todo-button" onclick={{action "onAddTodoClicked" this.todoList.id}}>
+  <i class="icon plus"></i>
+  Add Todo
+</button>
+{{yield}}

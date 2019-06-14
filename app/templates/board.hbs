@@ -1,0 +1,109 @@
+<div class="board-container">
+  <div class="inner-container">
+    {{#each model as |todoList|}}
+      <DraggableDropZone class="todo-list" @listId={{todoList.id}} @onTodoDropped={{action "todoListChange"}}>
+        <TodoList @todoList = {{todoList}} 
+                  @onStatusChange={{action "changeTodoStatus"}} 
+                  @onAddTodo={{action "addTodo"}} 
+                  @onAddTodoClicked={{action "showAddTodoModal"}}
+                  @onTodoDoubleClicked={{action "showUpdateTodoModal"}}
+                  @onTodoArchiveClicked={{action "showArchiveTodoModal"}}/>
+      </DraggableDropZone>
+    {{/each}}
+    <div class="add-todo-list" role="button" onclick={{action "showAddListModal"}}>
+      <i class="icon plus inverted huge add-todo-list-icon"></i>
+    </div>
+  </div>
+</div>
+
+{{!-- Add Todo Modal --}}
+<div class="ui addTodo modal mini">
+  <i class="close icon"></i>
+  <div class="header">
+    <h2>Add Todo</h2>
+  </div>
+  <div class="add-todo-input-container">
+    <h2>Title: </h2>
+    {{input class="ui input" type="text" value=todoTitle}}
+    <h2>Content: </h2>
+    {{textarea cols="22" rows="5" type="text" value=todoContent}}
+  </div>
+  <div class="actions">
+    <div class="ui deny right labeled icon button">
+      Cancel
+      <i class="x icon"></i>
+    </div>
+    <div {{action "addTodo"}} class="ui positive right labeled icon button" role="button">
+      Add
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+  {{!-- Add List Modal --}}
+<div class="ui list modal mini">
+  <i class="close icon"></i>
+  <div class="header">
+    <h2>Add List</h2>
+  </div>
+  <div class="add-todo-input-container">
+    <h3>Name: </h3>
+    {{input class="ui input" type="text" value=listName}}
+  </div>
+  <div class="actions">
+    <div class="ui deny right labeled icon button">
+      Cancel
+      <i class="x icon"></i>
+    </div>
+    <div {{action "addList"}} class="ui positive right labeled icon button" role="button">
+      Add
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+{{!-- Update Todo Modal --}}
+<div class="ui updateTodo modal mini">
+  <i class="close icon"></i>
+  <div class="header">
+    <h2>Update Todo</h2>
+  </div>
+  <div class="add-todo-input-container">
+    <h2>Title: </h2>
+    {{input class="ui input" type="text" value=updatedTodoTitle}}
+    <h2>Content: </h2>
+    {{textarea cols="22" rows="5" type="text" value=updatedTodoContent}}
+  </div>
+  <div class="actions">
+    <div class="ui deny right labeled icon button" role="button">
+      Cancel
+      <i class="x icon"></i>
+    </div>
+    <div {{action "updateTodo"}} class="ui positive right labeled icon button" role="button">
+      Update
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+{{!-- Archive Todo Modal --}}
+<div class="ui basic archiveTodo modal">
+  <div class="ui icon header">
+    <i class="archive icon"></i>
+    Archive Todo Card?
+  </div>
+  <div class="content">
+  </div>
+  <div class="actions">
+    <div class="ui red basic cancel inverted button">
+      <i class="remove icon"></i>
+      No
+    </div>
+    <div {{action "archiveTodo"}} class="ui green ok inverted button" role="button">
+      <i class="checkmark icon"></i>
+      Yes
+    </div>
+  </div>
+</div>
+
+{{outlet}}
